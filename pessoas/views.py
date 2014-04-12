@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from pessoas.models import Pessoas
+from pessoas.models import Pessoa
 
 from pessoas.models import Pessoa
 

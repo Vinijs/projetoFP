@@ -1,4 +1,5 @@
 from django.db import models
+
 class Pessoa(models.Model):
     nome = models.CharField(max_length='100', 
         blank=False, 
@@ -15,4 +16,4 @@ class Pessoa(models.Model):
     logradouro = models.CharField(max_length='200', 
         blank=True, 
         null=True)
-# Create your models here.
+
