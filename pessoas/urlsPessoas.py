@@ -4,6 +4,7 @@ urlpatterns = patterns('pessoas.views',
     url(r'^adicionar/$', 'pessoaAdicionar'),
     url(r'^editar/(?P<pk>\d+)/$', 'pessoaEditar'),
     url(r'^salvar/$', 'pessoaSalvar'),
+    url(r'^pesquisar/$', 'pessoaPesquisar'),
     url(r'^excluir/(?P<pk>\d+)/$', 'pessoaExcluir'),
     url(r'^$', 'pessoaListar'),
 )

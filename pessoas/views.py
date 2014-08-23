@@ -33,4 +33,36 @@ def pessoaSalvar(request):
 
         pessoa.save()
         return HttpResponseRedirect('/pessoas/')
+      
+def pessoaPesquisar(request):
+    if request.method == 'POST':
+        textoBusca = request.POST.get('textoBusca', 'TUDO').upper()
+        
+        try:
+            if textoBusca == 'TUDO':
+                pessoas = Pessoa.objects.all()
+            
+            else:
+                pessoas = Pessoa.objects.filter((Q(nome__contains=textoBusca) | Q(email__contains=textoBusca) | Q(telefone__contains=textoBusca) | Q(logradouro__contains=textoBusca))).order_by('-nome')
+                
+        except:
+            pessoas = []
+            
+        return render(request, 'pessoas/listaPessoas.html', {'pessoas' : pessoas, 'textoBusca' : textoBusca})
+      
+def pessoaEditar(request, pk = 0):
+    try:
+        pessoa = Pessoa.objects.get(pk=pk)
+    except:
+        return HttpResponseRedirect('/pessoas/')
+      
+    return render(request, 'pessoas/formPessoas.html', {'pessoa' : pessoa})
+  
+def pessoaExcluir(request, pk = 0):
+    try:
+        pessoa = Pessoa.objects.get(pk=pk)
+        pessoa.delete()
+        return HttpResponseRedirect('/pessoas/')
+    except:
+        return HttpResponseRedirect('/pessoas/')
 # Create your views here.

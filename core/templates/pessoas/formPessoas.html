@@ -31,13 +31,13 @@
                 <input name="email" id="idEmail" value="{{ pessoa.email|default_if_none:'' }}" type="email" class="form-control" placeholder="nome@dominio.com">
             </div>
         </div>
-    </div>
 
     <hr>
-
-
     <div align="center">
         <button type="submit" class="btn btn-success">Salvar Registro</button>
+      {% if pessoa.pk > 0%}
+      <a class="btn btn-danger" href="/pessoas/excluir/{{pessoa.pk }}/">Excluir</a>
+      {% endif %}
     </div>
 </form>
 {% endblock conteudo %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Fluxo de Caixa{% endblock titulo %}
+
+{% block conteudo %}
+<div class="container">
+<form class="form-horizontal" action="/caixas/fluxo/" method="POST" role="form">{% csrf_token %}
+
+            <div class="col-sm-4">
+                <label for="datetimepicker" class=""><b>Data Inicial</b></label>
+                <div class= "input-group date hidden-print datetimepicker">
+                    <input type="text" name="dataInicio" value='{{ dataInicio}}' class="form-control" placeholder="01/01/2014">
+                    <span class="input-group-addon add-on glyphicon glyphicon-calendar"></span>
+                </div>
+            </div>
+  
+            <div class="col-sm-4">
+                <label for="datetimepicker" class=""><b>Data Final</b></label>
+                <div class="input-group date hidden-print datetimepicker">
+                    <input type="text" name="dataFinal" value='{{ dataFinal }}' class="form-control" placeholder="01/01/2014">
+                    <span class="input-group-addon add-on glyphicon glyphicon-calendar"></span>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <br />
+                <button type="submit" class="btn btn-primary hidden-print"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+</form>
+</div>
+
+<hr>
+<div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Pessoa</th>
+            <th>R$</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for conta in contas %}
+          <tr>
+            <td><a href="/caixas/editar/{{ conta.pk }}">{{ conta.pessoa.nome }}</a></td>
+            <td>{{ conta.valor }}</td>
+            <td>{{ conta.descricao }}</td>
+            <td>{{ conta.data|date:"d/m/Y" }}</td>
+            <td>{{ conta.tipo }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        {% if total != NULL and contas|length > 0 %}
+        <tfoot>
+         <tr class="success">
+            <th>TOTAL:</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{ total }}</th>
+        </tr>
+        </tfoot>
+        {% endif %}
+      </table>
+</div><!-- FIM TABELA -->
+{% if total != NULL and contas|length > 0 %}
+ <button type="submit" onClick="window.print()" class="btn btn-info col-md-offset-11 col-sm-1 hidden-print">Print</button>
+{% endif %}
+
+{% endblock conteudo %}
