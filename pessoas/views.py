@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from pessoas.models import Pessoa
+from django.db.models import Q
 
-from pessoas.models import Pessoa
 
 def index(request):
     return render(request, 'index.html')

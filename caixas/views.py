@@ -40,7 +40,7 @@ def caixaPesquisar(request):
             if textoBusca == 'TUDO':
                 contas = Conta.objects.all()
             else:
-                sql = ("select cc.* from caixas_conta cc inner join pessoas_pessoa pp on pp.id = cc.pessoa_id where pp.nome = 1ike '%s' or cc.descricao like '%s' order by data") % ('%%'+textoBusca+'%%' , '%%' +textoBusca+ '%%')
+                sql = ("select cc.* from caixas_conta cc inner join pessoas_pessoa pp on pp.id = cc.pessoa_id where pp.nome like '%s' or cc.descricao like '%s' order by data") % ('%%'+textoBusca+'%%' , '%%' +textoBusca+ '%%')
                 contas = Conta.objects.raw(sql)
         except:
             contas = []
